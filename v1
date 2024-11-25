@@ -1,0 +1,65 @@
+const database = 'torneo_deportivo';
+const collection = 'deportista';
+
+use(database);
+
+function registrarJugador(nombre, edad, equipo, posicion, goles, asistencias, tarjetasAmarillas, tarjetasRojas) {
+    const jugador = {
+        nombre: nombre,
+        edad: edad,
+        equipo: equipo,
+        posicion: posicion,
+        estadisticas: {
+            goles: goles,
+            asistencias: asistencias,
+            tarjetasAmarillas: tarjetasAmarillas,
+            tarjetasRojas: tarjetasRojas
+        }
+    };
+
+   
+    db.deportista.insertOne(jugador);
+
+    return "Jugador registrado con éxito: " + JSON.stringify(jugador);
+}
+
+// Función para registrar un torneo
+function registrarTorneo(nombreTorneo, fechaInicio, fechaFin, equiposParticipantes, ubicacion) {
+    const torneo = {
+        nombreTorneo: nombreTorneo,
+        fechaInicio: new Date(fechaInicio),
+        fechaFin: new Date(fechaFin),
+        equiposParticipantes: equiposParticipantes,
+        ubicacion: ubicacion
+    };
+
+    // torneo
+    db.torneos.insertOne(torneo);
+
+    return "Torneo registrado con éxito: " + JSON.stringify(torneo);
+}
+
+// jugador
+const resultadoJugador = registrarJugador(
+    "Juan Amaya",     // Nombre del jugador
+    25,               // Edad
+    "Equipo A",       // Equipo
+    "Delantero",      // Posición
+    12,               // Goles
+    5,                // Asistencias
+    2,                // Tarjetas amarillas
+    0                 // Tarjetas rojas
+);
+
+// torneo
+const resultadoTorneo = registrarTorneo(
+    "Copa Interciudades", // Nombre del torneo
+    "2024-01-15",         // Fecha de inicio
+    "2024-02-01",         // Fecha de fin
+    ["Equipo A", "Equipo B", "Equipo C", "Equipo D"], // Equipos participantes
+    "Estadio Nacional"    // Ubicación
+);
+
+// resultado
+resultadoJugador;
+resultadoTorneo;
